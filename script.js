@@ -76,8 +76,6 @@ numbers.forEach((number) => {
     console.log('Attemping to add ' + e.target.textContent);
     console.log(arr);
     if (typeof (arr[arr.length - 1]) === 'number') { //if last is a number, then append this new number to it e.g. 5, 6 makes 56
-      console.log('I have reach here where arr[last] is a number');
-      console.log(arr[arr.length - 1]);
       newValue = parseFloat(arr[arr.length - 1].toString() + e.target.textContent);
       arr[arr.length - 1] = parseFloat(newValue.toFixed(3));
       displayNumber(arr[arr.length - 1] )
@@ -87,9 +85,6 @@ numbers.forEach((number) => {
             displayNumber(e.target.textContent)
             arr.push(parseFloat(e.target.textContent));
         } else if (arr[arr.length - 1].endsWith('.')) { //if it's last value is a decimal (nb it will be a string already), append new number
-            console.log('Trying to append after decimal:' + arr[arr.length - 1] + e.target.textContent);
-            console.log('setting last value of array to the below: ');
-            console.log(parseFloat(arr[arr.length - 1] + e.target.textContent));
             arr[arr.length - 1] = parseFloat(arr[arr.length - 1] + e.target.textContent);
             displayNumber(arr[arr.length - 1]);
         } else { //if last is an operator just display and append
@@ -103,30 +98,24 @@ numbers.forEach((number) => {
 
 decimal.addEventListener('click', (e) => {
   //convert arr[last] to a string and append .
-  console.log(arr);
   let str = arr[arr.length - 1].toString();
   if (!str.includes('.')) {
     arr[arr.length - 1] = arr[arr.length - 1].toString() + '.';
     displayNumber(arr[arr.length - 1]);
   }
-  console.log(arr);
 });
 
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    console.log(e.currentTarget.id);
     if(readyToCompute(arr)) {
       compute(arr);
       displayNumber(arr[arr.length - 1]);
     }
-    
     arr.push(e.currentTarget.id);
-    console.log(arr);
   });
 });
 
 calculate.addEventListener('click', (e) => {
-  console.log(e.target.textContent);
   if(readyToCompute(arr)) {
     compute(arr);
     displayNumber(arr[arr.length - 1]);
@@ -163,7 +152,6 @@ function readyToComputeFactorial(arr) {
 
 function readyToCompute(arr) {
   if (isFinite(arr[arr.length - 1]) && (typeof arr[arr.length - 2] === 'string') && isFinite(arr[arr.length - 3])) {
-    console.log(arr);
     console.log('Ready to operate');
     return true;
   } else { 
@@ -176,7 +164,6 @@ function compute(arr) {
   let result = operate(arr[arr.length - 2], arr[arr.length - 3], arr[arr.length - 1]);
   result = parseFloat(result.toFixed(3));
   arr.push(result);
-  console.log(result);
   return result;
 }
 
